@@ -183,5 +183,56 @@ To show all fields in table format, please see the examples in --help.
 
 
 
+## View the available logs on the system:
+    gcloud logging logs list
+```
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/GCEGuestAgent
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/OSConfigAgent
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/cloudaudit.googleapis.com%2Factivity
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/cloudaudit.googleapis.com%2Fdata_access
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/cloudaudit.googleapis.com%2Fsystem_event
+NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/compute.googleapis.com%2Fshielded_vm_integrity
+```
+
+## View the logs that relate to compute resources:
+    gcloud logging logs list --filter="compute"
+
+## Read the logs related to the resource type of gce_instance:
+     gcloud logging read "resource.type=gce_instance" --limit 5
+
+## Read the logs for a specific virtual machine:
+    gcloud logging read "resource.type=gce_instance AND labels.instance_name='gcelab2'" --limit 5
+
+
+## Google Container Engine (GKE)
+### Create a GKE cluster
+    gcloud container clusters create --machine-type=e2-medium --zone=us-west1-a lab-cluster 
+
+### Get authentication credentials for the cluster
+    gcloud container clusters get-credentials lab-cluster 
+
+### Deploy an application to the cluster
+    kubectl create deployment hello-server --image=gcr.io/google-samples/hello-app:1.0
+
+### To create a Kubernetes Service, which is a Kubernetes resource that lets you expose your application to external traffic, run the following kubectl expose command:
+    kubectl expose deployment hello-server --type=LoadBalancer --port 8080
+
+### To inspect the hello-server Service, run kubectl get:
+    kubectl get service
+NAME           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)          AGE
+hello-server   LoadBalancer   10.16.10.156   34.168.145.188   8080:32544/TCP   87s
+kubernetes     ClusterIP      10.16.0.1      <none>           443/TCP          6m38s
+
+### To view the application from your web browser opn ip address or curl:
+    curl http://34.168.145.188:8080/
+```
+Hello, world!
+Version: 1.0.0
+Hostname: hello-server-76d47868b4-xfbnr
+```
+
+### Deleting the cluster
+    gcloud container clusters delete lab-cluster 
+
 
 
