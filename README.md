@@ -93,7 +93,7 @@ INTERNAL_IP: 10.128.0.2
 EXTERNAL_IP: 34.27.184.158
 STATUS: RUNNING
 ```
-List the compute instance available in the project:
+## List the compute instance available in the project:
     gcloud compute instances list
 ```
 NAME: gcelab2
@@ -119,10 +119,9 @@ STATUS: RUNNING
 
 ## List the firewall-rules
     gcloud compute firewall-rules list
-    
+
 ## List the Firewall rules for the default network:
     gcloud compute firewall-rules list --filter="network='default'"
-
 
 ## To connect to your VM with SSH, run the following command:
     gcloud compute ssh gcelab2 --zone $ZONE
@@ -219,9 +218,11 @@ NAME: projects/qwiklabs-gcp-01-c7bd54e4fecf/logs/compute.googleapis.com%2Fshield
 
 ### To inspect the hello-server Service, run kubectl get:
     kubectl get service
+```
 NAME           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)          AGE
 hello-server   LoadBalancer   10.16.10.156   34.168.145.188   8080:32544/TCP   87s
 kubernetes     ClusterIP      10.16.0.1      <none>           443/TCP          6m38s
+```
 
 ### To view the application from your web browser opn ip address or curl:
     curl http://34.168.145.188:8080/
